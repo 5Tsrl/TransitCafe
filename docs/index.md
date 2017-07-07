@@ -1,6 +1,6 @@
-# Conveyal Transit Data Tools
+# TransitCafé
 
-The Conveyal Transit Data Tools suite provides web-based tools for creating, managing, evaluating, and publishing transit data, specifically data stored in the General Transit Feed Specification (GTFS) format.
+The TransitCafé suite provides web-based tools for creating, managing, evaluating, and publishing transit data, specifically data stored in the General Transit Feed Specification (GTFS) format.
 
 ![screenshot](img/public-portal.png)
 
