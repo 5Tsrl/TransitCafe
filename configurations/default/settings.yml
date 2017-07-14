@@ -5,14 +5,15 @@ application:
   data:
     gtfs_s3_bucket: bucket-name
     use_s3_storage: false
-  title: Data Manager
+  title: Transit Café
   logo: http://gtfs-assets-dev.conveyal.com/data_manager.png # defaults to src/main/client/assets/application_logo.png
   active_project: project-id
   notifications_enabled: false
-  docs_url: http://docs.example.com
+  docs_url: https://5tsrl.github.io/datatools-ui/
   changelog_url: https://changelog.example.com
-  support_email: support@example.com
-  date_format: MMM Do YYYY
+  support_email: cafe@5t.torino.it
+  #date_format: MMM Do YYYY
+  date_format: DD.MM.YYYY
 modules:
   enterprise:
     enabled: false
