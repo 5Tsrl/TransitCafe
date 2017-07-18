@@ -1,0 +1,352 @@
+id: it-IT
+name: Italiano
+DatatoolsNavbar:
+  manager: Manager
+  editor: Editor
+  alerts: Avvisi
+  users: Utenti
+  signConfig: eTID Config
+  guide: Guida
+  account: Il mio Account
+  resetPassword: Resetta Password
+  logout: Log Out
+  login: Log In
+Breadcrumbs:
+  root: Esplora
+  projects: Progetti
+  deployments: Deployments
+RegionSearch:
+  placeholder: Cerca area o aziende
+PublicFeedsTable:
+  search: Cerca
+  name: Nome del feed
+  region: Area
+  stateProvince: Comune o Provincia
+  country: Stato
+  lastUpdated: Ultimo aggiornamento
+  link: Vai al GTFS
+PublicFeedsViewer:
+  title: Catalogo
+ProjectsList:
+  title: Progetti
+  noProjects: Attualmente non hai nessun progetto.
+  createFirst: Crea il mio primo progetto
+  search: Cerca per nome progetto
+  table:
+    name: Nome del progetto
+  new: Nuovo progetto
+  help:
+    title: Che cosa è un progetto?
+    content: Un progetto è usato per raggruppare feed GTFS. Per esempio, i feed di un progetto potrebbero essere nella stessa area geografica o potrebbero descrivere uno scenario di pianificazione del servizio.
+DeploymentsPanel:
+  title: Deployments
+  search: Cerca deploy per nome
+  new: Nuovo deploy
+  delete: Rimuovi deploy
+  table:
+    name: Nome
+    creationDate: Data di creazione
+    feedCount: Numero di feed
+    deployedTo: Deploy per
+ProjectViewer:
+  mergeFeeds: Unisci tutto
+  makePublic: Aggiorna feed pubblici
+  settings: Impostazioni
+  makePublic: Rendi feed pubblici
+  deployments: Deployments
+  feeds:
+    title: Fonti dei feed
+    search: Cerca per nome
+    table:
+      name: Nome
+      public: Pubblicabile?
+      deployable: Deployable?
+      retrievalMethod: Metodo di recupero
+      lastUpdated: Aggiornato
+      errorCount: Errori
+      validRange: Intervallo valido
+    new: Nuova fonte per feed
+    createFirst: Crea la prima fonte per un feed!
+    update: Seleziona tutto
+EditorFeedSourcePanel:
+  title: Snapshot
+  version: Versione
+  publish: Pubblica
+  createFromScratch: Crea un GTFS da zero
+  loadLatest: Carica ultimi per le modifiche
+  help:
+    title: Cosa sono gli snapshot?
+    body:
+      - Gli snapshot sono punti di salvataggio a cui si può sempre tornare quando si modifica un feed GTFS.
+      - Uno snapshot può rappresentare un work-in-progress, una pianificazione futura o anche una variante del servizio (per esempio l'orario estivo).
+  of: di
+  noVersions: (Nessuna Versione)
+  noVersionsExist: Non ci sono versioni per questo feed.
+  date: Data
+  name: Nome
+  download: Scarica
+  active: Attivo
+  restore: Rendi attivo
+  load: Carica per modifiche
+  snapshot: snapshot
+  confirmLoad: Questo sovrascriverà tutti i dati per questo feed presenti nel GTFS Editor da questa versione. Se ci sono dati non salvati nell'Editor da conservare, è necessario prima effettuare uno snapshot dei dati. Sei sicuro di voler continuare?
+  confirmDelete: Questo cancellerà in maniera definitiva questo snapshot. Ogni dato salvato qui non potrà essere recuperato. Sei sicuro di voler continuare?
+  feed: Feed
+  delete: Elimina
+FeedSourceViewer:
+  edit: Modifica il GTFS
+  deploy: Deploy
+  private: Vista privata
+  viewPublic: Vedi pagina pubblica
+  versions: Versioni
+  gtfs: GTFS
+  properties:
+    title: Impostazioni
+    property: Proprietà
+    value: Valore
+    name: Nome
+    noneSelected: (Nessun file selezionato)
+    retrievalMethod:
+      title: Metodo di recupero
+      fetchedAutomatically: Caricato automaticamente
+      manuallyUploaded: Caricamento manuale
+      producedInHouse: Prodotto In-house
+    public: Pubblico?
+    deployable: Deployable?
+    snapshot: Modifica lo snapshot
+  upload: Carica
+  update: Aggiorna
+FeedVersionViewer:
+  status: Stato
+  version: versione
+  noVersionsExist: Non esiste alcuna versione per questa fonte di dati.
+  timestamp: Timestamp del file
+  download: Scarica
+  load: Carica
+  confirmLoad: Questo sovrascriverà tutti i dati per questo feed presenti nel GTFS Editor da questa versione. Se ci sono dati non salvati nell'Editor da conservare, è necessario prima effettuare uno snapshot dei dati. Sei sicuro di voler continuare?
+  feed: Feed
+  delete: Elimina
+  confirmDelete: Sei sicuro di voler cancellare questa versione? Questa operazione non potrà essere annullata.
+FeedVersionTabs:
+  agencyCount: Numero di aziende
+  routeCount: Numero di linee
+  tripCount: Numero di corse
+  stopTimesCount: Numero di passaggi in fermata
+  validDates: Date valide
+GtfsValidationExplorer:
+  title: Esplora la validazione
+  validationIssues: Problemi di validazione
+  accessibilityValidation: Esplora l'accessibilità
+  timeValidation: Validazione temporale
+  table:
+    file: File
+    issue: Problemi
+    priority: Priorità
+    count: Numero
+GtfsValidationViewer:
+  title: Risultati della validazione
+  issues:
+    routes: Problemi legati alle linee
+    stops: Problemi legati alle fermate
+    trips: Problemi legati alle corse
+    shapes: Problemi legati al percorso
+    stop_times: Problemi legati al numero di passaggi in fermata
+    other: Altri problemi
+  noResults: Nessuna validazione da mostrare.
+  explorer: Esplora la validazione
+ResultTable:
+  problemType: Tipo di problema
+  priority: Priorità
+  affectedIds: ID interessati
+  line: Linea
+  description: Descrizione
+DeploymentViewer:
+  versions: Versioni del feed
+  search: Cerca per nome
+  download: Scarica
+  noServers: Nessun server definito
+  addFeedSource: Aggiungi fonte del feed
+  allFeedsAdded: Tutti i feed aggiunti
+  deploy: Deploy
+  table:
+    name: Nome
+    version: Versione
+    dateRetrieved: Data estratto
+    loadStatus: Caricato con successo
+    errorCount: Numero di errori
+    routeCount: Numero di linee
+    tripCount: Numero di corse
+    stopTimesCount: Numero di passaggi in fermata
+    validFrom: Valido da
+    expires: Scade il
+FeedVersionNavigator:
+  version: Versione
+  of: di
+  previous: Precedente
+  next: Successivo
+  download: Scarica
+  load: Carica per modifiche
+  confirmLoad: Questo sovrascriverà tutti i dati per questo feed presenti nel GTFS Editor da questa versione. Se ci sono dati non salvati nell'Editor da conservare, è necessario prima effettuare uno snapshot dei dati. Sei sicuro di voler continuare?
+  feed: Feed
+  delete: Elimina
+  confirmDelete: Sei sicuro di voler cancellare questa versione? Questa operazione non potrà essere annullata.
+NotesViewer:
+  title: Commenti
+  feedSource: Fonte del feed
+  feedVersion: Versione
+  all: Tutti i commenti
+  none: Nessun commento.
+  refresh: Refresh
+  postComment: Posta un nuovo commento
+  new: Posta
+ProjectSettings:
+  title: Impostazioni
+  save: Salva
+  rename: Rinomina
+  confirmDelete: Sei sicuro di voler cancellare questo progetto? Questa azione non potrà essere annullata e tutti i feed e le loro versioni saranno eliminate in maniera definitiva.
+  deleteProject: Cancella il progetto?
+  general:
+    title: Generale
+    location:
+      title: Posizione
+      defaultLocation: Posizione di default (lat, lng)
+      defaultTimeZone: Fuso orario di default
+      boundingBox: Rettangolo di selezione (O,S,E,N)
+      defaultLanguage: Lingua di default
+    updates:
+      title: Aggiornamenti
+      autoFetchFeeds: Alimentare automaticamente i feed?
+  deployment:
+    title: Deployment
+    buildConfig:
+      title: Build Config
+      fetchElevationUS: Recupera dati sull'altitudine
+      stationTransfers: Sta. Trasbordi
+      subwayAccessTime: Tempo di accesso alla metropolitana
+      fares: Tariffe
+    routerConfig:
+      title: Configurazione del router
+      numItineraries: "# di itinerari"
+      walkSpeed: Velocità a piedi
+      stairsReluctance: Evita le scale
+      carDropoffTime: Tempo di discesa dall'auto
+      brandingUrlRoot: Branding URL Root
+      requestLogFile: Richiedi file di log
+    servers:
+      title: Server
+      new: Aggiungi server
+      serverPlaceholder: Nome del server
+      name: Nome
+      namePlaceholder: Produzione
+      delete: Rimuovi
+      public: URL pubblica
+      internal: URL interna
+      admin: Permetti l'accesso solo all'amministratore del sistema?
+      s3Bucket: Nome S3 bucket
+    osm:
+      title: Estrai OSM
+      gtfs: Usa i confini estratti dal GTFS
+      custom: Usa confini di estrazione personalizzati
+      bounds: Confini di estrazione personalizzati
+UserAccount:
+  title: Le mie impostazioni
+  personalSettings: Impostazioni personali
+  profile:
+    title: Profilo
+    profileInformation: Informazioni sul profilo
+  account:
+    title: Account
+  organizations:
+    title: Organizzazioni
+  notifications:
+    title: Notifiche
+    subscriptions: Le tue iscrizioni
+    methods: Metodi di notifica
+    unsubscribeAll: Annulla iscrizioni
+  billing:
+    title: Pagamenti
+  organizationSettings: Impostazioni delle organizzazioni
+
+UserAdmin:
+  title: Amministrazione
+  noAccess: La tua utenza non ha abbastanza privilegi per accedere a questa area.
+UserList:
+  filterByOrg: Filtra per organizzazione.
+  title: Gestione dell'utente
+  showing: Mostra utenti
+  of: di
+  search: Cerca per username
+UserRow:
+  appAdmin: Amministratore dell'applicazione
+  orgAdmin: Amministratore dell'organizzazione
+  cancel: Cancella
+  delete: Elimina
+  deleteConfirm: Sei sicuro di voler eliminare definitivamente questo utente?
+  edit: Modifica
+  save: Salva
+UserHomePage:
+  title: Progetti
+  noProjects: Attualmente non hai nessun progetto.
+  createFirst: Crea il mio primo progetto
+  table:
+    name: Nome del progetto
+  new: Nuovo Progetto
+  help:
+    title: Che cosa è un progetto?
+    content: Un progetto è utilizzato per raggruppare i feed GTFS. Per esempio, i feed in un progetto possono essere in una stessa regione o potrebbero descrivere uno scenario di pianificazione del servizio.
+FeedSourcePanel:
+  search: Cerca feed
+OrganizationList:
+  search: Cerca organizzazione
+  new: Crea organizzazione
+OrganizationSettings:
+  orgDetails: Dettagli dell'organizzazione
+  projects: Progetti
+  extensions: Estensioni
+  subDetails: Dettagli dell'iscrizione
+  name:
+    label: Nome
+    placeholder: Big City Transit
+  logoUrl:
+    label: URL del logo
+    placeholder: http://example.com/logo_30x30.png
+  subscriptionBeginDate: Inizia l'iscrizione
+  subscriptionEndDate: Finisci l'iscrizione
+  usageTier:
+    low: Basso
+    medium: Medio
+    high: Alto
+
+CreateUser:
+  new: Crea utente
+UserSettings:
+  edit: Modifica
+  delete: Elimina
+  cancel: Cancella
+  save: Salva
+  application: Impostazioni dell'applicazione
+  org:
+    admin: Amministratore dell'organizzazione
+    description: Gli amministratori dell'organizzazione hanno pieno accesso ai progetti dell'organizzazione.
+    billing: Amministratore dei pagamenti
+  admin:
+    title: Amministratore dell'applicazione
+    description: Gli amministratori dell'applicazione hanno pieno accesso a tutti i progetti.
+  project:
+    title: Impostazione del progetto per
+    noAccess: Nessun accesso
+    admin: Amministratore
+    custom: Personalizzato
+    feeds: Fonti dei feed
+    cannotFetchFeeds: Impossibile recuperare i feed
+    permissions: Permessi
+WatchButton:
+  watch: Osserva
+  unwatch: Non osservare
+StarButton:
+  star: Aggiungi ai preferiti
+  unstar: Rimuovi dai preferiti
+TimezoneSelect:
+  placeholder: Seleziona il fuso orario...
+LanguageSelect:
+  placeholder: Seleziona la lingua...
