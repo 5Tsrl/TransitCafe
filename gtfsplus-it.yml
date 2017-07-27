@@ -1,0 +1,340 @@
+---
+- id: realtime_routes
+  name: realtime_routes.txt
+  helpContent: Questo dile contiene informazioni aggiuntive sul tempo reale di una linea.
+  fields:
+  - name: route_id
+    required: true
+    inputType: GTFS_ROUTE
+    columnWidth: 4
+    helpContent: Dal file GTFS routes.txt; questo è necessario per mantenere una relazione tra le linee in questo file e le linee nel file routes.txt.
+  - name: realtime_enabled
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Disabilitato
+    - value: '1'
+      text: Abilitato
+    columnWidth: 2
+    helpContent: Un GTFS standard non include un campo che indichi lo stato in tempo reale di una linea. Questo fornisce flessibilità alle aziende di identificare linee che non possono avere previsioni in tempo reale.
+  - name: realtime_routename
+    required: false
+    inputType: TEXT
+    columnWidth: 3
+    helpContent: Questo campo può essere vuoto se è fornito il campo route_long_name nel file routes.txt del GTFS. Altrimenti, deve contenere i dati definiti nel campo route_long_name del file routes.txt.
+  - name: realtime_routecode
+    required: false
+    inputType: TEXT
+    columnWidth: 3
+    helpContent: Questo campo può essere vuoto se il codice della linea che indica il tempo reale nel feed in tempo reale è lo stesso del campo route_short_name del file routes.txt.
+
+- id: realtime_stops
+  name: realtime_stops.txt
+  helpContent: Questo file aiuta a mappare le fermate regionali con tempo reale in vase al campo stop_id dello stops.txt. Questo file può essere omesso se il file stops.txt contiene lo stop id regionale in tempo reale nel campo opzionale stop_code.
+  fields:
+  - name: trip_id
+    required: true
+    inputType: GTFS_TRIP
+    columnWidth: 5
+    helpContent: Dal file stop_times.txt.
+  - name: stop_id
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 5
+    helpContent: Dal file stop_times.txt quando lo stop_code nel GTFS è diverso dallo stop_code usato nel feed real-time.
+  - name: realtime_stop_id
+    required: true
+    inputType: TEXT
+    columnWidth: 2
+    helpContent: Stop_code corrispondente usato nel feed real-time.
+
+- id: directions
+  name: directions.txt
+  helpContent: Gli utenti della versione 1.7 o successiva devono usare questo file ed ignorare la realtime_directions.txt. Nel GTFS, la direzione della corsa può essere specificata solo come ‘0’ o ‘1’. Non è permesso usare indicazioni di direzioni come nord, sud, ecc. Questo file prende il testo che indica la direzione per ogni direzione in una linea. Le informazioni sulla direzione di una linea possono essere fornite tramite il file directions.txt o realtime_directions.txt, ma non entrambi.  Gli utenti della versione 1.6 o precedenti possono continuare ad usare il file realtime_directions.txt, a meno che scelgano di passare alla directions.txt. Solo un file a scelta tra directions.txt e realtime_directions.txt deve essere incluso. Inoltre, il campo tripheadsign in trips.txt deve essere popolato per distinguere i percorsi in base alla direzione e per fornire ai passeggeri informazioni sulla destinazione. Quando è usato il file directions.txt, il campo opzionale direction_id in trips.txt deve essere compilato.
+  fields:
+  - name: route_id
+    required: true
+    inputType: GTFS_ROUTE
+    columnWidth: 6
+    helpContent: Dal file routes.txt.
+  - name: direction_id
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 3
+    helpContent: Cmapo binario per la direction_id dal file trips.txt. Ogni coppia (route_id, direction_id) può comparire una sola volta nella directions.txt.
+  - name: direction
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: Nord
+    - value: Sud
+    - value: Est
+    - value: Ovest
+    - value: Nord-est
+    - value: Nord-ovest
+    - value: Sud-est
+    - value: Sud-ovest
+    - value: Senso orario
+    - value: Senso antiorario
+    - value: In entrata
+    - value: In uscita
+    - value: Circolare
+    - value: Circolare A
+    - value: Circolare B
+    columnWidth: 3
+    helpContent: Nome della direzione corrispondente.
+
+- id: realtime_trips
+  name: realtime_trips.txt
+  helpContent: Questo file contiene un identificativo in tempo reale delle corse. Questo file può essere omesso se il file trips.txt contiene lo stesso trip ID incluso nel feed real-time feed con il campo trip_id.
+  fields:
+  - name: trip_id
+    required: true
+    inputType: GTFS_TRIP
+    columnWidth: 6
+    helpContent: Dal file trips.txt
+  - name: realtime_trip_id
+    required: true
+    inputType: TEXT
+    maxLength: 15
+    columnWidth: 6
+    helpContent: Trip_id corrispondente fornito nel feed in real-time.
+
+- id: stop_attributes
+  name: stop_attributes.txt
+  helpContent: Questo file contiene un attributo aggiuntivo per una fermata. Questo file è necessario perchè il GTFS standard non include questi campi.
+  fields:
+  - name: stop_id
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 4
+    helpContent: Dal file stops.txt
+  - name: accessibility_id
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Sconosciuto
+    - value: '1'
+      text: Nessun accesso per persone diversamente abili
+    - value: '2'
+      text: Pieno accesso per persone diversamente abili
+    - value: '3'
+      text: Sedia a rotelle
+    - value: '4'
+      text: Cieco
+    - value: '5'
+      text: Sordo
+    - value: '6'
+      text: Cieco/Sedia a rotelle
+    - value: '7'
+      text: Sordo/Cieco
+    - value: '8'
+      text: Sordo/Sedia a rotelle
+    columnWidth: 2
+    helpContent: definisce i parametri di accessibilità per una fermata
+  - name: cardinal_direction
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: ''
+      text: Sconosciuto
+    - value: 'NO'
+      text: Nord
+    - value: SO
+      text: Sud
+    - value: EA
+      text: Est
+    - value: WE
+      text: Ovest
+    - value: NE
+      text: Nord-est
+    - value: NW
+      text: Nord-ovest
+    - value: SE
+      text: Sud-est
+    - value: SW
+      text: Sud-ovest
+    columnWidth: 2
+    helpContent: Definizione delle direzioni della posizione di una fermata
+  - name: relative_position
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: ''
+      text: Sconosciuto
+    - value: NS
+      text: Lato vicino all'incrocio
+    - value: FS
+      text: Lato lontano dall'incrocio
+    - value: AT
+      text: La fermata è alla posizione
+    - value: OP
+      text: La fermata è dall'altro lato della strada
+    columnWidth: 2
+    helpContent: Posizione della fermata relativa al nome della fermata
+  - name: stop_city
+    required: true
+    inputType: TEXT
+    maxLength: 60
+    columnWidth: 2
+    helpContent: La città corrisponde alla fermata
+
+- id: timepoints
+  name: timepoints.txt
+  helpContent: Questo file può essere omesso se il file stop_times.txt ha dei valori nulli nel campo arrival_time e departure_time per tutte le fermate che non sono time points. Questo file è necessario perchè il GTFS standard non include questi campi.
+  fields:
+  - name: trip_id
+    required: true
+    inputType: GTFS_TRIP
+    columnWidth: 6
+    helpContent: Dal file stop_times.txt
+  - name: stop_id
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 6
+    helpContent: Dal file stop_times.txt (include solo le fermate time point)
+
+- id: rider_categories
+  name: rider_categories.txt
+  helpContent: Questo file elenca le categorie di biglietti diponibile per l'utenza diverse dalla tipologia ordinaria. Questo file è necessario perchè il GTFS non include questi campi.
+  fields:
+  - name: rider_category_id
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '1'
+      text: Adulto
+    - value: '2'
+      text: Anziano
+    - value: '3'
+      text: Bambino
+    - value: '4'
+      text: Studente
+    - value: '5'
+      text: Giovane
+    - value: '6'
+      text: Diversamente abile
+    - value: '7'
+      text: Categoria speciale
+    - value: '11'
+      text: Militari
+    - value: '15'
+      text: Personalizzato (15)
+    - value: '16'
+      text: Personalizzato (16)
+    - value: '17'
+      text: Personalizzato (17)
+    - value: '18'
+      text: Personalizzato (18)
+    - value: '19'
+      text: Personalizzato (19)
+    - value: '20'
+      text: Personalizzato (20)
+    - value: '21'
+      text: Personalizzato (21)
+    - value: '22'
+      text: Personalizzato (22)
+    - value: '23'
+      text: Personalizzato (23)
+    - value: '24'
+      text: Personalizzato (24)
+    - value: '25'
+      text: Personalizzato (25)
+    columnWidth: 6
+    helpContent: ID categoria utente (l'azienda può assegnare le categorie che non ricadono nelle tipologie standard)
+  - name: rider_category_description
+    required: true
+    inputType: TEXT
+    maxLength: 256
+    columnWidth: 6
+    helpContent: Categoria utente come appare sul sito delle aziende di trasporto
+
+- id: fare_rider_categories
+  name: fare_rider_categories.txt
+  helpContent: Questo file elenca le categorie di biglietti diponibile per l'utenza diverse dalla tipologia ordinaria. Il file fare_attributes.txt del GTFS contiene le tariffe dei biglietti di tipo regolare. Le tariffe per le altre categorie di utenti saranno fornite nel file fare_rider_categories.txt. La combinazione di fare_id e rider_category_id dovrebbe essere unica. Questo file è necessario perchè il GTFS standard non include questi campi.
+  fields:
+  - name: fare_id
+    required: true
+    inputType: GTFS_FARE
+    columnWidth: 6
+    helpContent: From GTFS fare_attributes.txt file
+  - name: rider_category_id
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '2'
+      text: Anziano
+    - value: '3'
+      text: Bambino
+    - value: '4'
+      text: Studente
+    - value: '5'
+      text: Giovane
+    - value: '6'
+      text: Diversamente abile
+    - value: '7'
+      text: Categoria speciale
+    - value: '11'
+      text: Militari
+    - value: '15'
+      text: Personalizzato (15)
+    - value: '16'
+      text: Personalizzato (16)
+    - value: '17'
+      text: Personalizzato (17)
+    - value: '18'
+      text: Personalizzato (18)
+    - value: '19'
+      text: Personalizzato (19)
+    - value: '20'
+      text: Personalizzato (20)
+    - value: '21'
+      text: Personalizzato (21)
+    - value: '22'
+      text: Personalizzato (22)
+    - value: '23'
+      text: Personalizzato (23)
+    - value: '24'
+      text: Personalizzato (24)
+    - value: '25'
+      text: Personalizzato (25)
+    columnWidth: 3
+    helpContent: Dal file di tipo Plus rider_categories.txt
+  - name: price
+    required: true
+    inputType: TEXT
+    maxLength: 8
+    columnWidth: 3
+
+- id: calendar_attributes
+  name: calendar_attributes.txt
+  helpContent: Questo file contiene la calendar attributes. Questo file è necessario perchè il GTFS standard non include questi campi.
+  fields:
+  - name: service_id
+    required: true
+    inputType: GTFS_SERVICE
+    helpContent: From GTFS calendar.txt file
+  - name: service_description
+    required: true
+    inputType: TEXT
+    maxLength: 30
+    helpContent: Descrizione del servizio
+
+- id: farezone_attributes
+  name: farezone_attributes.txt
+  helpContent: Questo file contiene le informazioni sulle zone tariffarie. Questo file è necessario perchè il GTFS standard non include questi campi.
+  fields:
+  - name: zone_id
+    required: true
+    inputType: GTFS_ZONE
+    helpContent: Dal file del GTFS stops.txt
+  - name: zone_name
+    required: true
+    inputType: TEXT
+    maxLength: 35
+    helpContent: Nome pubblico delle zone tariffarie, come appaiono sui siti di informazioni delle aziende
