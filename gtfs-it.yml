@@ -1,0 +1,769 @@
+---
+- id: feedinfo
+  name: feed_info.txt
+  helpContent: Il file contiene informazioni sul feed stesso, invece che sul servizio che il feed descrive. Il GTFS attualmente contiene il file agency.txt che fornisce informazioni sulle aziende che operano il servizio descritto nel feed. Tuttavia, chi pubblica il feed è talvolta un soggetto differente dalle aziende (in caso di aggregatori regionali). Inoltre, ci sono alcuni campi che sono strettamente legati al feed, invece che alle aziende.
+  fields:
+  - name: "feed_publisher_name"
+    required: true
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Il campo feed_publisher_name contiene il nome completo dell'organizzazione che pubblica il feed. (Questo può avere lo stesso valore di agency_name contenuto in agency.txt.) Le applicazioni che usano il GTFS possono mostrare questo nome nell'attribuzione dei dati di un certo feed."
+  - name: "feed_publisher_url"
+    required: true
+    inputType: URL
+    columnWidth: 12
+    helpContent: "Il campo feed_publisher_url contiene la URL del sito dell'organizzazione che pubblica il feed. (Questo può avere lo stesso valore di agency_url contenuto in agency.txt.) Il valore deve essere una URL valida, che include http:// o https://, ed ogni carattere speciale nella URL deve essere correttamente codificato. Vedi http://www.w3.org/Addressing/URL/4_URI_Recommentations.html per una descrizione completa di come creare URL valide."
+  - name: "feed_lang"
+    required: true
+    inputType: LANGUAGE
+    columnWidth: 12
+    helpContent: "Il campo feed_lang contiene un codice linguaggio IETF BCP 47 che specfica il linguaggio di default usato per il testo in questo feed. Queste informazioni aiutano gli utilizzatori del GTFS a scegliere le regole di capitalizzazione e altre impostazioni specifiche del linguaggio per il feed. Per una introduzione al IETF BCP 47, si prega di fare riferimento a http://www.rfc-editor.org/rfc/bcp/bcp47.txt e http://www.w3.org/International/articles/language-tags/."
+  - name: "feed_start_date"
+    required: false
+    inputType: DATE
+    columnWidth: 12
+    helpContent: "Il feed fornisce informazioni complete ed affidabili sul servizio programmato operante nel periodo dal giorno indicato da feed_start_date day fino al giorno indicato da feed_end_date. Entrambi i giorni sono indicati nel formato data AAAAMMGG come nel calendar.txt, o lasciati non compilati se non disponibili. La data contenuta nella feed_end_date non deve essere precedente alla feed_start_date, in caso siano entrambe fornite. I fornitori dei feed sono incoraggiati a fornire servizi programmati fuori da questo periodo per avvisare di servizi similari futuri, ma gli utenti dei feed devono considerarli secondo il loro stato non ufficiale. Se la feed_start_date o feed_end_date si estende oltre il calendario di validità definito in calendar.txt e calendar_dates.txt, il feed sta fornendo indicazione che non vi è alcun servizio per le date entro il range di date della feed_start_date o della feed_end_date ma non incluso nel calendario attivo."
+  - name: "feed_end_date"
+    required: false
+    inputType: DATE
+    columnWidth: 12
+    helpContent: "Il feed fornisce informazioni complete ed affidabili sul servizio programmato operante nel periodo dal giorno indicato da feed_start_date day fino al giorno indicato da feed_end_date. Entrambi i giorni sono indicati nel formato data AAAAMMGG come nel calendar.txt, o lasciati non compilati se non disponibili. La data contenuta nella feed_end_date non deve essere precedente alla feed_start_date, in caso siano entrambe fornite. I fornitori dei feed sono incoraggiati a fornire servizi programmati fuori da questo periodo per avvisare di servizi similari futuri, ma gli utenti dei feed devono considerarli secondo il loro stato non ufficiale. Se la feed_start_date o feed_end_date si estende oltre il calendario di validità definito in calendar.txt e calendar_dates.txt, il feed sta fornendo indicazione che non vi è alcun servizio per le date entro il range di date della feed_start_date o della feed_end_date ma non incluso nel calendario attivo."
+  - name: color
+    displayName: Colore di default
+    datatools: true
+    required: false
+    inputType: COLOR
+    columnWidth: 6
+    # helpContent: "The stop_lat field contains the latitude of a stop or station. The field value must be a valid WGS 84 latitude."
+  - name: defaultRouteType
+    displayName: Tipo di mezzo di default (route_type)
+    datatools: true
+    columnWidth: 6
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: 3
+      text: Bus
+    - value: 0
+      text: Tram
+    - value: 1
+      text: Metropolitana
+    - value: 2
+      text: Treno
+    - value: 4
+      text: Vaporetto
+    - value: 5
+      text: Tram a fune
+    - value: 6
+      text: Funivia
+    - value: 7
+      text: Funicolare
+  - name: "feed_version"
+    required: false
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Chi pubblica il feed può specificare qui una stringa che indica la versione corrente del feed GTFS. Le applicazioni che usano il GTFS possono mostrare questo valore per aiutare chi pubblica i GTFS a determinare se l'ultima versione del feed è quella in uso."
+  - name: "defaultLat"
+    required: false
+    displayName: Latitudine di default
+    datatools: true
+    inputType: LATITUDE
+    columnWidth: 6
+    # helpContent: "The stop_lat field contains the latitude of a stop or station. The field value must be a valid WGS 84 latitude."
+  - name: "defaultLon"
+    displayName: Longitudine di default
+    required: false
+    datatools: true
+    inputType: LONGITUDE
+    columnWidth: 6
+    # helpContent: "The stop_lon field contains the longitude of a stop or station. The field value must be a valid WGS 84 longitude value from -180 to 180."
+
+
+- id: agency
+  name: agency.txt
+  helpContent: Una o più aziende di trasporto che fornisce i dati che alimentano il feed.
+  fields:
+  - name: "agency_id"
+    required: false
+    inputType: GTFS_ID
+    columnWidth: 12
+    helpContent: "Il campo agency_id è un ID univoco che identifica una azienda di trasporto. Un feed può rappresentare dati di più di una azienda. Il dataset delle agency_id è unico. Questo campo è opzionale per i feed che contengono i dati di una singola azienda."
+  - name: "agency_name"
+    required: true
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Il campo agency_name contiene il nome completo dell'azienda di trasporto. E' il nome mostrato dai calcolo percorso."
+  - name: "agency_url"
+    required: true
+    inputType: URL
+    placeholder: https://agency.org
+    columnWidth: 12
+    helpContent: "Il campo agency_url contiene la URL del sito web dell'azienda di trasporto. Questo valore deve essere una URL valida, che include http:// o https://, ed ogni carattere speciale nella URL deve essere correttamente codificato."
+  - name: "agency_timezone"
+    required: true
+    inputType: TIMEZONE
+    columnWidth: 12
+    helpContent: "Il campo agency_timezone contiene il fuso orario di riferimento per l'area in cui si trova l'azienda di trasporto. I nomi dei fusi orari non contengono mai spazi ma possono contenere un underscore. Se il feed contiene più aziende, ognuna deve avere lo stesso agency_timezone."
+  - name: "agency_lang"
+    required: false
+    inputType: LANGUAGE
+    columnWidth: 12
+    helpContent: "Il campo agency_lang contiene un codice di due lettere ISO 639-1 che indica la lingua principale usata dall'azienda di trasporto. Il codice è case-insensitive (sono accettati sia it che IT). Questa impostazione definisce le regole di capitalizzazione e altre impostazioni specifiche dei linguaggio per ogni testo contenuto in questo feed dell'azienda. Si prega di fare riferimento a http://www.loc.gov/standards/iso639-2/php/code_list.php per una lista dei valori validi."
+  - name: "agency_phone"
+    required: false
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Il campo agency_phone contiene un unico numero di telefono per una determinata azienda. Questo campo è una stringa che indica il numero di telefono dell'azienda per una determinata area di servizio. Può e dovrebbe contenere punteggiatura per raggruppare le cifre del numero."
+  - name: "agency_fare_url"
+    required: false
+    inputType: URL
+    placeholder: https://agency.org/fares
+    columnWidth: 12
+    helpContent: "La agency_fare_url specifica la URL della pagina web che permette all'utente di comprare un biglietto o utilizzare altri servizi online dell'operatore di trasporto. Questo valore deve essere una URL valida, che include http:// o https://, ed ogni carattere speciale nella URL deve essere correttamente codificato. Vedi http://www.w3.org/Addressing/URL/4_URI_Recommentations.html per una descrizione di come creare una URL valida."
+  - name: "agency_email"
+    required: false
+    inputType: EMAIL
+    placeholder: contact@agency.org
+    columnWidth: 12
+    helpContent: "Il campo agency_email contiene un indirizzo mail monitorato dal servizio clienti dell'azienda di trasporto. Questa mail sarà considerata come punto di contatto diretto tra utente e azienda."
+  - name: agency_branding_url
+    required: false
+    displayName: URL del brand dell'azienda
+    datatools: false
+    placeholder: https://agency.org/assets/agency/XYZ
+    inputType: URL
+    columnWidth: 12
+    helpContent:
+
+- id: stop
+  name: stops.txt
+  helpContent: Individua la posizione in cui i veicoli caricano o scaricano i passeggeri.
+  fields:
+  - name: "stop_id"
+    required: true
+    inputType: GTFS_ID
+    columnWidth: 6
+    helpContent: "Il campo stop_id contiene un ID che identifica univocamente una fermata o una stazione. Più percorsi possono usare la stessa fermata. Il dataset degli stop_id è unico."
+  - name: "stop_code"
+    required: false
+    inputType: GTFS_ID
+    columnWidth: 6
+    helpContent: "Il campo stop_code contiene un breve testo o numero che identifica univocamente la fermata per i passeggeri. Il codice della fermata è spesso usato nei sistemi di informazione utilizzabili da telefono o stampati ai cartelli delle fermate per rendere più facile per l'utente la consultazione dell'orario o le informazioni in tempo reale degli arrivi in fermata."
+  - name: "stop_name"
+    required: true
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Il campo stop_name contiene il nome di una fermata o stazione. Si prega di utilizzare un nome che la gente possa capire nella lingua locale."
+  - name: "stop_desc"
+    required: false
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: "Il campo stop_desc contiene una descrizione della fermata. Si prega di fornire informazioni qualitativamente utili e di non duplicare semplicemente il nome della fermata."
+  - name: "stop_lat"
+    required: true
+    inputType: LATITUDE
+    columnWidth: 6
+    helpContent: "Il campo stop_lat contiene la latitudine di una fermata o stazione. Il valore deve essere espresso secondo il sistema di coordinate WGS 84."
+  - name: "stop_lon"
+    required: true
+    inputType: LONGITUDE
+    columnWidth: 6
+    helpContent: "Il campo stop_lon contiene la longitudine di una fermata o stazione. Il valore deve essere espresso secondo il sistema di coordinate WGS 84."
+  - name: "zone_id"
+    required: false
+    inputType: GTFS_ZONE
+    columnWidth: 12
+    helpContent: "Il campo zone_id definisce la zona tariffaria di uno stop ID. L'ID della zona è richiesta se si vogliono fornire informazioni sulla bigliettazione utilizzando il fare_rules.txt. Se lo stop ID rappresenta una stazione, il campo zone_id ID può essere ignorato."
+  - name: "stop_url"
+    required: false
+    inputType: URL
+    columnWidth: 12
+    helpContent: "Il campo stop_url contiene la URL della pagina web di una fermata. Questa dovrebbe essere diversa dalla agency_url e dalla route_url."
+  - name: "location_type"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Fermata (0)
+    - value: '1'
+      text: Stazione (1)
+    columnWidth: 12
+    helpContent: "Il campo location_type identifica se lo stop ID rappresenta una fermata o una stazione. Se non è specificata alcuna location_type o se il campo location_type non è valorizzato, gli stop ID sono considerati come fermate. Le stazioni possono avere proprietà differenti dalle fermate quando sono rappresentate su mappa o utilizzate in un calcolo percorsi."
+  - name: "parent_station"
+    required: false
+    inputType: GTFS_STOP
+    columnWidth: 12
+    helpContent: "Per le fermate che sono fisicamente all'interno di una stazione, il campo parent_station identifica la stazione associata con la fermata. Per usare questo campo, il file stops.txt deve anche contenere una riga in cui allo stop ID è assegnato location_type=1."
+  - name: "stop_timezone"
+    required: false
+    inputType: TIMEZONE
+    columnWidth: 12
+    helpContent: "Il campo stop_timezone contiene il fuso orario in cui collocato la fermata o la stazione. Se omesso, la fermata è considerata posizionata nel fuso orario specificato nel campo agency_timezone nel file agency.txt."
+  - name: "wheelchair_boarding"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: 'UNKNOWN'
+      text: Nessuna informazione (0)
+    - value: 'AVAILABLE'
+      text: Almeno in alcuni veicoli (1)
+    - value: 'UNAVAILABLE'
+      text: Non possibile (2)
+    columnWidth: 12
+    helpContent: "Il campo wheelchair_boarding identifica se una sedia a rotelle può salire a bordo di un mezzo partendo da una specifica fermata o stazione. Il campo può avere i seguenti valori:"
+
+
+- id: route
+  name: routes.txt
+  helpContent: Questo file contiene informazioni sulle linee.
+  fields:
+  - name: status
+    datatools: true
+    displayName: Stato
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: 'IN_PROGRESS'
+      text: 'In fase di modifica'
+    - value: 'PENDING_APPROVAL'
+      text: 'In attesa di approvazione'
+    - value: 'APPROVED'
+      text: 'Approvato'
+    columnWidth: 6
+    adminOnly: true
+    # helpContent: The route_id field contains an ID that uniquely identifies a route. The route_id is dataset unique.
+  - name: publiclyVisible
+    datatools: true
+    displayName: Visibile pubblicamente?
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: false
+      text: 'No'
+    - value: true
+      text: 'Sì'
+    columnWidth: 6
+    adminOnly: true
+    # helpContent: The route_id field contains an ID that uniquely identifies a route. The route_id is dataset unique.
+  - name: route_id
+    required: true
+    inputType: GTFS_ID
+    columnWidth: 5
+    helpContent: Il campo route_id contiene un ID che identifica univocamente una linea. Il valore di route_id deve essere univoco nel dataset.
+  - name: route_short_name
+    required: true
+    inputType: TEXT
+    columnWidth: 7
+    helpContent: Il campo route_short_name contiene il nome abbreviato di una linea. Questo è spesso un breve ed astratto identificativo della linea come "32", "100X" o "Verde" che viene usato per identificare una linea, ma non fornisce indicazioni sulle località servite dalla linea.
+  - name: route_long_name
+    required: true
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: Il campo route_long_name contiene il nome completo di una linea. Questo è genericamente più descrittivo rispetto al route_short_name e include la destinazione o delle fermate della linea. Almeno un valore a scelta tra route_short_name o route_long_name deve essere specificato, o potenzialmente entrambi. Se la linea non ha un nome "lungo", si prega di specificare un route_short_name e di usare una stringa vuota come valore di questo campo.
+  - name: agency_id
+    required: false
+    inputType: GTFS_AGENCY
+    columnWidth: 12
+    helpContent: Il campo agency_id definisce l'azienda che fornisce il servizio di una determinata linea. Questo valore è collegato al file agency.txt. Usa questo campo se stai fornendo dati per linee esercite da più di una azienda.
+  - name: route_desc
+    required: false
+    inputType: TEXT
+    columnWidth: 12
+    helpContent: 'Contiene una descrizione di una linea. Si prega di fornire informazioni di buona qualità e non di duplicare semplicemente il nome della linea.'
+  - name: route_type
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: 3
+      text: Bus
+    - value: 0
+      text: Tram
+    - value: 1
+      text: Metropolitana
+    - value: 2
+      text: Treno
+    - value: 4
+      text: Vaporetto
+    - value: 5
+      text: Tram a fune
+    - value: 6
+      text: Funivia
+    - value: 7
+      text: Funiculare
+    columnWidth: 12
+    helpContent: Il campo route_type descrive il tipo di mezzo di trasporto utilizzato per la linea.
+  - name: route_url
+    required: false
+    inputType: URL
+    placeholder: https://agency.org/route/1234
+    columnWidth: 12
+    helpContent: Il campo route_url contiene la URL della pagina web di una determinata linea. Questo valore deve essere diverso dalla agency_url.
+  - name: route_color
+    required: false
+    inputType: COLOR
+    placeholder: 'FF0000'
+    columnWidth: 6
+    helpContent: In sistemi che hanno colori assegnati alle linee, il campo route_color definisce un colore che corrisponde ad una linea. Il colore deve essere fornito in formato esadecimale, ad esempio 00FFFF. Se non è specificato alcun colore, il colore di default è il bianco (FFFFFF).
+  - name: route_text_color
+    required: false
+    inputType: DROPDOWN
+    options:
+      - value: 'FFFFFF'
+        text: Bianco
+      - value: '000000'
+        text: Nero
+    columnWidth: 6
+    helpContent: Il campo route_text_color può essere usato per specificare il colore utilizzato per scrivere testi utilizzand come sfondo il route_color. Il colore deve essere fornito in formato esadecimale, ad esempio FFD700. Se non è specificato alcun colore, il colore di default per i testi è il nero (000000).
+  - name: wheelchair_boarding
+    required: false
+    displayName: La linea è considerata accessibile?
+    inputType: DROPDOWN
+    columnWidth: 12
+    helpContent: Indica se i veicoli che operano il servzio sulla linea in questione sono accessibili alle persone diversamente abili.
+    options:
+      - value: 'UNKNOWN'
+        text: Nessuna informazione (0)
+      - value: 'AVAILABLE'
+        text: Sì (1)
+      - value: 'UNAVAILABLE'
+        text: No (2)
+  - name: route_branding_url
+    required: false
+    displayName: URL del brand dell'azienda
+    datatools: false
+    placeholder: https://agency.org/assets/route/1234
+    inputType: URL
+    columnWidth: 12
+    helpContent:
+
+- id: trip
+  name: trips.txt
+  helpContent: Corse per ogni linea. Una corsa è una sequenza di due o più fermate con una programmazione di passaggio in fermata.
+  fields:
+  - name: "route_id"
+    required: true
+    inputType: GTFS_ROUTE
+    columnWidth: 6
+    helpContent: "Il campo route_id contiene un ID che identifica univocamente una linea. Questo valore è riferito al file routes.txt."
+  - name: "service_id"
+    required: true
+    inputType: GTFS_SERVICE
+    columnWidth: 6
+    helpContent: "Il campo service_id contiene un ID che identifica univocamente una lista di date in cui il servizio è disponibile per una o più linee. Questo valore è riferito al file calendar.txt o calendar_dates.txt."
+  - name: "trip_id"
+    required: true
+    inputType: GTFS_ID
+    columnWidth: 6
+    helpContent: "Il campo trip_id contiene un ID che identifica una corsa. Il valore di service_id deve essere univoco nel dataset."
+  - name: "trip_headsign"
+    required: false
+    inputType: TEXT
+    columnWidth: 6
+    helpContent: "Il campo trip_headsign contiene il testo che appare sul cartello che segnala la destinazione della corsa ai passeggeri. Usa questo campo per distinguere tra differenti varianti di percorso di una linea. Se il cartello cambia durante la corsa, è possibile sovrascrivere il trip_headsign specificando il valore per il campo stop_headsign nel file stop_times.txt."
+  - name: "trip_short_name"
+    required: false
+    inputType: TEXT
+    columnWidth: 6
+    helpContent: "Il campo trip_short_name contiene il testo che appare negli orari e che serve per far identificare la corsa ai passeggeri, ad esempio, per identficare il numero di un treno per corse che includono cambi. Se gli utenti abitualmente non fanno affidamento sui nomi delle corse, si prega di lasciare in bianco questo campo."
+  - name: "direction_id"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Corsa in una direzione (outbound)
+    - value: '1'
+      text: Corsa nella direzione oppposta (inbound)
+    #text direction_id by 5T
+    columnWidth: 6
+    helpContent: "Il campo direction_id contiene un valore binario che indica la direzione di una corsa. Usa questo campo per distinguere tra corse bidirezionali con lo stesso route_id. Questo campo non è usato nel routing; fornisce un modo per dividere le corse per direzione nella pubblicazione degli orari. Si possono specificare nomi per ogni direzione nel campo trip_headsign."
+  - name: "block_id"
+    required: false
+    inputType: GTFS_BLOCK
+    columnWidth: 6
+    helpContent: "Il campo block_id identifica il blocco a cui la corsa appartiene. Un blocco consiste in una o più corse in sequenza effettuate utilizzando lo stesso veicolo, in cui un passeggero può passare da una corsa alla successiva rimanendo nel veicolo. Il block_id deve fare riferimento ad una o più corse presenti nel trips.txt."
+  - name: "shape_id"
+    required: false
+    inputType: GTFS_SHAPE
+    columnWidth: 6
+    helpContent: "Il campo shape_id contiene un ID che definisce un percorso per la corsa. Questo valore è riferito al file shapes.txt. Il file shapes.txt permette di definire come disegnare una linea sulla mappa per rappresentare la corsa."
+  - name: "wheelchair_accessible"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Non ci sono informazioni sull'accessibilità
+    - value: '1'
+      text: Veicolo accessibile
+    - value: '2'
+      text: Veicolo non accessibile
+    #text wheelchair_accessible by 5T
+    columnWidth: 6
+    helpContent: "0 (o vuoto) - indica che non ci sono informazioni sull'accessibilità della corsa"
+  - name: "bikes_allowed"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Non ci sono informazioni sull'accessibilità per le bici
+    - value: '1'
+      text: Veicolo accessibile per le bici
+    - value: '2'
+      text: Veicolo non accessibile alle bici
+    #text bikes_allowed by 5T
+    columnWidth: 6
+    helpContent: "0 (o vuoto) - indica che non ci sono informazioni riguardo all'accessibilità per le bici per la corsa"
+
+
+- id: stop_time
+  name: stop_times.txt
+  helpContent: Tempo in cui il veicolo arriva e riparte da una fermata per ogni corsa.
+  fields:
+  - name: "trip_id"
+    required: true
+    inputType: GTFS_TRIP
+    columnWidth: 6
+    helpContent: "Il campo trip_id contiene un ID che identifica la corsa. Questo valore è riferito al file trips.txt."
+  - name: "arrival_time"
+    required: true
+    inputType: TIME
+    columnWidth: 6
+    helpContent: "L'arrival_time specifica l'orario di arrivo ad una specifica fermata per una determinata corsa di una linea. Il tempo è misurato da "
+  - name: "departure_time"
+    required: true
+    inputType: TIME
+    columnWidth: 6
+    helpContent: "Il departure_time specifica l'orario di partenza da una specifica fermata per una determinata corsa di una linea. Il tempo è misurato da "
+  - name: "stop_id"
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 6
+    helpContent: "Il campo stop_id contiene un ID che identifica univocamente una fermata. Più linee possono usarela stessa fermata. Lo stop_id è riferito al file stops.txt. Se il campo location_type è utilizzato nello stops.txt, tutte le fermate con riferimenti nello stop_times.txt devono avere location_type=0."
+  - name: "stop_sequence"
+    required: true
+    inputType: POSITIVE_INT
+    columnWidth: 6
+    helpContent: "Il campo stop_sequence identifica l'ordine delle fermate per una corsa in particolare. I valori della stop_sequence devono essere degli interi non negativi e devono incrementarsi lungo il percorso."
+  - name: "stop_headsign"
+    required: false
+    inputType: TEXT
+    columnWidth: 6
+    helpContent: "Il campo stop_headsign contiene il testo che appare sul cartello che identifica la destinazione della corsa per i passeggeri. Usa questo campo per sovrascrivere il trip_headsign di default se il cartello cambia tra le fermate. Se questo cartello è associato all'intera corsa, usa il campo trip_headsign."
+  - name: "pickup_type"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Salita programmata da orario
+    - value: '1'
+      text: Nessuna salita disponibile
+    - value: '2'
+      text: Fermata da prenotare telefonicamente
+    - value: '3'
+      text: E' necessario contattare l'autista per concordare la fermata per salire
+    columnWidth: 6
+    helpContent: "Il campo pickup_type indica se i passeggeri salgono sul mezzo alla fermata come parte della normale programmazione o se se la salita ad una fermata non è disponibile. Questo campo permette anche di indicare ad un'azienda di trasporto il fatto che i passeggeri devono chiamare l'azienda o avvisare l'autista per concordare la salita ad una determinata fermata."
+  - name: "drop_off_type"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Discesa programmata da orario
+    - value: '1'
+      text: Nessuna discesa disponibile
+    - value: '2'
+      text: Fermata da prenotare telefonicamente
+    - value: '3'
+      text: E' necessario contattare l'autista per concordare la fermata per la discesa
+    columnWidth: 6
+    helpContent: "Il campo drop_off_type indica se i passeggeri scendono dal mezzo alla fermata come parte della normale programmazione o se se la discesa ad una fermata non è disponibile. Questo campo permette anche di indicare ad un'azienda di trasporto il fatto che i passeggeri devono chiamare l'azienda o avvisare l'autista per concordare la discesa ad una determinata fermata."
+    #text drop_off_type e pickup_type by 5T
+  - name: "shape_dist_traveled"
+    required: false
+    inputType: POSITIVE_NUM
+    columnWidth: 6
+    helpContent: "Se usato nel file stop_times.txt, il campo shape_dist_traveled posiziona una fermata come distanza dal primo punto dello shape del percorso. Il campo shape_dist_traveled rappresenta la vera distanza percorsa lungo la linea in km. Per esempio, se un bus percorre una distanza di 5.25 km dall'inizio del percorso alla fermata, la shape_dist_traveled per la fermata con ID sarà inserito come "
+  - name: "timepoint"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: ''
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo timepoint può essere usato per indicare se l'orario di arrivo e partenza per una fermata è strettamente legato al mezzo o se i tempi sono approssimati o interpolati. Il campo permette al produttore di un GTFS di fornire orari di arrivo in fermata interpolati che potenzialmente tengano conto della conoscenza locale, ma che indichino se gli orari sono approssimati."
+
+- id: calendar
+  name: calendar.txt
+  helpContent: Anagrafica delle validità (service_ID). Specifica quando un servizio inizia e finisce, così come i giorni della settimana in cui è generalmente disponibile.
+  fields:
+  - name: "service_id"
+    required: true
+    inputType: GTFS_ID
+    columnWidth: 6
+    helpContent: "Il campo service_id contiene un ID che identifica univocamente un set di date in cui il servizio è disponibile per una o più linee. Ogni service_id può apparire al più una volta nel file calendar.txt. Questo valore deve essere univoco nel dataset. Vi sono riferimenti nel file trips.txt."
+  - name: "description"
+    required: false
+    datatools: true
+    inputType: TEXT
+    columnWidth: 6
+    helpContent:
+  - name: "monday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo lunedì contiene un valore binario che indica se il servizio è in funzione tutti i lunedì."
+  - name: "tuesday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo martedì contiene un valore binario che indica se il servizio è in funzione tutti i martedì."
+  - name: "wednesday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo mercoledì contiene un valore binario che indica se il servizio è in funzione tutti i mercoledì."
+  - name: "thursday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo giovedì contiene un valore binario che indica se il servizio è in funzione tutti i giovedì."
+  - name: "friday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo venerdì contiene un valore binario che indica se il servizio è in funzione tutti i venerdì."
+  - name: "saturday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo sabato contiene un valore binario che indica se il servizio è in funzione tutti i sabati."
+  - name: "sunday"
+    required: true
+    inputType: DAY_OF_WEEK_BOOLEAN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo domenica contiene un valore binario che indica se il servizio è in funzione tutte le domeniche."
+  - name: "start_date"
+    required: true
+    inputType: DATE
+    columnWidth: 12
+    helpContent: "Il campo start_date contiene la data di inizio del servizio."
+  - name: "end_date"
+    required: true
+    inputType: DATE
+    columnWidth: 12
+    helpContent: "Il campo end_date contiene la data di conclusione del servizio. Questa data è inclusa nell'intervallo di validità del servizio."
+
+
+- id: calendar_dates
+  name: calendar_dates.txt
+  helpContent: Eccezioni per il service_ID definite nel file calendar.txt. Se il calendar_dates.txt include tutte le date in cui opera il servizio, questo file può essere specificato al posto del calendar.txt.
+  fields:
+  - name: "service_id"
+    required: true
+    inputType: GTFS_SERVICE
+    columnWidth: 6
+    helpContent: "Il service_id contiene un ID che identifica univocamente un set di date in un è disponibile una eccezione di validità del servizio per una o più linee. Ogni coppia (service_id, data) può apparire una sola volta nel calendar_dates.txt. Se il valore del service_id appare sia nel calendar.txt che nel calendar_dates.txt, l'informazione in calendar_dates.txt modifica le informazioni del servizio specificate nel calendar.txt. Questo campo ha riferimenti nel file trips.txt."
+  - name: "date"
+    required: true
+    inputType: DATE
+    columnWidth: 12
+    helpContent: "Il campo date specifica una particolare data in cui la disponibilità del servizio è diversa dalla situazione ordinaria. Si può utilizzare il campo exception_type per indicare se il servizio sia disponibile in date specifiche."
+  - name: "exception_type"
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '1'
+      text: servizio aggiunto per una data specifica
+    - value: '2'
+      text: servizio rimosso per una data specifica
+    columnWidth: 6
+    helpContent: "L'exception_type indica se il servizio è disponibile nelle date specificate nel campo date."
+
+
+- id: fare_attributes
+  name: fare_attributes.txt
+  helpContent: Informazioni sulla bigliettazione per le linee di un'azienda di trasporto.
+  fields:
+  - name: "fare_id"
+    required: true
+    inputType: GTFS_ID
+    columnWidth: 6
+    helpContent: "Il campo fare_id contiene un ID che identifica univocamente una categoria di biglietto. Il fare_id è univoco nel dataset."
+  - name: "price"
+    required: true
+    inputType: NUMBER
+    columnWidth: 6
+    helpContent: "Il campo price contiene la tariffa, nell'unità specificata dal currency_type."
+  - name: "currency_type"
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: 'USD'
+    - value: 'EUR'
+    - value: 'GBP'
+    columnWidth: 6
+    helpContent: "Il campo currency_type definisce la valuta usata per pagare il biglietto. Si prega di usare i codici di valuta secondo la ISO 4217, che è riportata all'URL:http://en.wikipedia.org/wiki/ISO_4217."
+  - name: "payment_method"
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Pagamento a bordo (0)
+    - value: '1'
+      text: Pagamento prima di salire sul mezzo (1)
+    columnWidth: 6
+    helpContent: "Il campo payment_method indica quando il biglietto deve essere pagato. Valori validi per questo campo sono:"
+  - name: "transfers"
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Nessun trasbordo permesso (0)
+    - value: '1'
+      text: Un trasbordo permesso (1)
+    - value: '2'
+      text: Due trasbordi permessi (2)
+    - value: ''
+      text: Trasbordi illimitati (vuoto)
+    columnWidth: 6
+    helpContent: "Il campo transfers specifica il numero di trasbordi permessi nel biglietto. Valori validi sono:"
+  - name: "transfer_duration"
+    required: false
+    inputType: POSITIVE_INT
+    columnWidth: 6
+    helpContent: "Il campo transfer_duration specifica il periodo di validità prima che scada il trasbordo."
+
+
+- id: fare_rules
+  name: fare_rules.txt
+  helpContent: Regole da applicare per la tariffazione delle linee delle aziende di trasporto.
+  fields:
+  - name: "fare_id"
+    required: true
+    inputType: GTFS_FARE
+    columnWidth: 6
+    helpContent: "Il campo fare_id contiene un ID che identifica univocamente una classe tariffaria. Questo valore ha riferimenti nel file fare_attributes.txt."
+  - name: "route_id"
+    required: false
+    inputType: GTFS_ROUTE
+    columnWidth: 12
+    helpContent: "Il campo route_id associa il fare_ID con una linea. Le route_ID hanno riferimenti nel file routes.txt. Se vi sono più linee con la stessa classe tariffaria, bisogna creare una riga nel file fare_rules.txt per ogni linea."
+  - name: "origin_id"
+    required: false
+    inputType: GTFS_ZONE
+    columnWidth: 6
+    helpContent: "Il campo origin_id associa il fare_ID con un ID della zona di origine. L'ID della zona ha riferimenti nello stops.txt. Se vi sono diversi ID di origine con la stessa tariffazione, crea una riga nel fare_rules.txt per ogni ID di origine."
+  - name: "destination_id"
+    required: false
+    inputType: GTFS_ZONE
+    columnWidth: 6
+    helpContent: "Il campo destination_id associa l'ID della tariffazione con l'ID della zona di destinazione. L'ID della zona ha riferimenti nello stops.txt. Se ci sono più ID di destinazione con gli stessi attributi di tariffazione, crea una riga nel fare_rules.txt per ogni ID di destinazione."
+  - name: "contains_id"
+    required: false
+    inputType: GTFS_ZONE
+    columnWidth: 6
+    helpContent: "Il campo contains_id associa l'ID della tariffazione con l'ID della zona, che ha riferimenti nello stops.txt. L'ID della bigliettazione è quindi associato con i percorsi che passano per ogni zona contains_id."
+
+
+- id: frequencies
+  name: frequencies.txt
+  helpContent: Frequenza (tempo tra corse) per linee con frequenza di servizio variabile.
+  fields:
+  - name: "trip_id"
+    required: true
+    inputType: GTFS_TRIP
+    columnWidth: 6
+    helpContent: "Il trip_id contiene un ID che identifica una corsa a cui è applicata una specifica frequenza di servizio. Le ID delle corse hanno riferimenti nel trips.txt."
+  - name: "start_time"
+    required: true
+    inputType: TIME
+    columnWidth: 6
+    helpContent: "Il campo start_time specifica l'orario in cui il servizio inizia con una specifica frequenza."
+  - name: "end_time"
+    required: true
+    inputType: TIME
+    columnWidth: 6
+    helpContent: "Il campo end_time indica l'orario in cui il servizio modifica la frequenza di servizio (o cessa) riferendosi alla prima fermata della corsa."
+  - name: "headway_secs"
+    required: true
+    inputType: POSITIVE_INT
+    columnWidth: 6
+    helpContent: "Il campo headway_secs indica il tempo tra le partenze dallo stessa fermata (capolinea) per questo tipo di corsa, durante l'intervallo temporale specificato da start_time e end_time. Il valore deve essere espresso in secondi."
+  - name: "exact_times"
+    required: false
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+    - value: '1'
+    columnWidth: 6
+    helpContent: "Il campo exact_times determina se le corse con passaggi a frequenza devono essere esattamente programmate sulle informazioni di avanzamento."
+
+
+- id: transfers
+  name: transfers.txt
+  helpContent: Regole per connessioni ai punti di trasbordo tra linee.
+  fields:
+  - name: "from_stop_id"
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 12
+    helpContent: "Il campo from_stop_id contiene uno stop ID che identifica una fermata o una stazione in cui iniziano le connessioni tra linee. Gli stop ID hanno riferimenti nello stops.txt. Se lo stop ID si riferisce a una stazione che contiene più fermate, questa regola di trasbordo si applica a tutte le fermate in quella stazione."
+  - name: "to_stop_id"
+    required: true
+    inputType: GTFS_STOP
+    columnWidth: 12
+    helpContent: "Il campo to_stop_id contiene uno stop ID che identifica una fermata o stazione in cui termina la connessione tra più linee. Gli stop ID hanno riferimenti nel file stops.txt. Se lo stop ID fa riferimento alla stazione che contiene più fermate, questa regola per i trasbordi si applica a tutte le fermate nella stazione."
+  - name: "transfer_type"
+    required: true
+    inputType: DROPDOWN
+    options:
+    - value: '0'
+      text: Punto di interscambio raccomandato tra linee
+    - value: '1'
+      text: Punto di interscambio con coincidenza tra due linee . Il veicolo in partenza è previsto che aspetti quello in arrivo, concedendo tempo ai passeggeri per il trasbordo tra le linee.
+    - value: '2'
+      text: Questo trasbordo richiede un minimo tempo di attesa tra l'arrivo e la partenza per garantire il collegamento. Il tempo richiesto per il trasbordo è specificato dal min_transfer_time.
+    - value: '3'
+      text: In questo luogo non è possibile effettuare trasbordi tra linee
+    #text transfer_type by 5T
+    columnWidth: 6
+    helpContent: "Il campo transfer_type specifica il tipo di collegamento per la coppia di valori specificati (from_stop_id, to_stop_id)."
+  - name: "min_transfer_time"
+    required: false
+    inputType: POSITIVE_INT
+    columnWidth: 6
+    helpContent: "Quando il collegamento tra linee richiede un certo lasso di tempo tra arrivo e partenza (transfer_type=2), il campo min_transfer_time definisce il lasso di tempo che deve essere disponibile per permettere la coincidenza tra linee in queste fermate. Il min_transfer_time deve essere sufficiente a permettere ad un utente di muoversi tra due fermate, considerando del tempo aggiuntivo per permettere un cambio di orario su ogni linea."
+
+
+- id: scheduleexception
+  name: (none)
+  helpContent: Tabella per classificare le eccezioni del calendario.
+  fields:
+  - name: "name"
+    required: true
+  - name: "dates"
+    required: true
+    inputType: EXCEPTION_DATE
+  - name: "exemplar"
+    required: true
